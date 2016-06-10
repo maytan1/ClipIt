@@ -259,30 +259,44 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(String s) {
                     Log.d(TAG, "FAILED with output : " + s);
+                    notifyIntent.putExtra("PREVIEW_FILE", "");
                     if(STATE == 1){
                         notif.setContentText("Your video could not be converted. Tap to know more.");
-                        notifyIntent.putExtra("PREVIEW_FILE", "");
                         notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         notif.setContentIntent(notifyPendingIntent);
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else{
-                        Snackbar.make(findViewById(R.id.btnExecute), "Your video could not be converted. Tap to know more.", Snackbar.LENGTH_INDEFINITE).show();
+                        Snackbar.make(MainActivity.this, "Your video could not be converted. Tap to know more.", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("Action", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(notifyIntent);
+                            }
+                        })
+                                .show();
                     }
                 }
 
                 @Override
                 public void onSuccess(String s) {
                     Log.d(TAG, "SUCCESS with output : " + s);
+                    notifyIntent.putExtra("PREVIEW_FILE", preview);
                     if(STATE == 1) {
-                        notif.setContentText("Your video was converted succeffully. Tap to preview.");
-                        notifyIntent.putExtra("PREVIEW_FILE", preview);
+                        notif.setContentText("Your video was converted succeffully. Tap to preview.");                        
                         notifyPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         notif.setContentIntent(notifyPendingIntent);
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else {
-                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted succeffully. Tap to preview.", Snackbar.LENGTH_INDEFINITE).show();
+                        Snackbar.make(MainActivity.this, "Your video was converted succeffully. Tap to preview.", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("Action", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(notifyIntent);
+                            }
+                        })
+                                .show();
                     }
                 }
 
