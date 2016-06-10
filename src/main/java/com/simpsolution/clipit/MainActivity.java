@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else{
-                        Snackbar.make(MainActivity.this, "Your video could not be converted. Tap to know more.", Snackbar.LENGTH_INDEFINITE)
+                        Snackbar.make(findViewById(R.id.btnExecute), "Your video could not be converted. Tap to know more.", Snackbar.LENGTH_INDEFINITE)
                                 .setAction("Action", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else {
-                        Snackbar.make(MainActivity.this, "Your video was converted succeffully. Tap to preview.", Snackbar.LENGTH_INDEFINITE)
+                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted succeffully. Tap to preview.", Snackbar.LENGTH_INDEFINITE)
                                 .setAction("Action", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
