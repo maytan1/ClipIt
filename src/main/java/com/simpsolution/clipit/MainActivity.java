@@ -23,10 +23,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManager notifManager;
     private Intent notifyIntent;
     private PendingIntent notifyPendingIntent;
+    private final ProgressBar pb = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);;
     private final int PICK_VIDEO_REQUEST = 1;
     private final int ADVANCED_OPTIONS_REQUEST = 2;
     private final int FINISH_NOTIFICATION = 001;
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Drawing Status Bar Material Design on Supported Versions
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            //@TargetAPI(21)
+            //@TargetApi(21)
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
         
@@ -121,6 +127,26 @@ public class MainActivity extends AppCompatActivity {
 
     //<editor-fold defaultstate="collapsed" desc="init function">
     public void init(){
+        
+        //Initializing Progress Bar for Conversion Tasks
+        pb.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 20));
+        pb.setProgress(65);
+        final FrameLayout decorView = (FrameLayout) getWindow().getDecorView();
+        decorView.addView(pb);  
+        
+        ViewTreeObserver observer = pb.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                View contentView = decorView.findViewById(R.id.content);
+                int actionBarHeight = getSupportActionBar().getHeight();
+                pb.setY(contentView.getY() + actionBarHeight - 10);
+        
+                ViewTreeObserver observer = pb.getViewTreeObserver();
+                observer.removeOnGlobalLayoutListener(this);
+            }
+            
+        });
         
         //Initializing Advanced Checkbox
         cb = (CheckBox) findViewById(R.id.checkAdvanvced);
@@ -210,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -267,8 +293,8 @@ public class MainActivity extends AppCompatActivity {
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else{
-                        Snackbar.make(findViewById(R.id.btnExecute), "Your video could not be converted. Tap to know more.", Snackbar.LENGTH_INDEFINITE)
-                                .setAction("Action", new View.OnClickListener() {
+                        Snackbar.make(findViewById(R.id.btnExecute), "Your video could not be converted.", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("Know More", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startActivity(notifyIntent);
@@ -289,8 +315,8 @@ public class MainActivity extends AppCompatActivity {
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else {
-                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted succeffully. Tap to preview.", Snackbar.LENGTH_INDEFINITE)
-                                .setAction("Action", new View.OnClickListener() {
+                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted succeffully.", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("Preview", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 startActivity(notifyIntent);
