@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     //<editor-fold defaultstate="collapsed" desc="Variables and Objects">
     private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private Spinner containers;
     private RadioButton rbAudio, rbVideo;
     private ArrayAdapter<CharSequence> adapter;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManager notifManager;
     private Intent notifyIntent;
     private PendingIntent notifyPendingIntent;
-    private final ProgressBar pb = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);;
     private final int PICK_VIDEO_REQUEST = 1;
     private final int ADVANCED_OPTIONS_REQUEST = 2;
     private final int FINISH_NOTIFICATION = 001;
@@ -128,22 +128,22 @@ public class MainActivity extends AppCompatActivity {
     //<editor-fold defaultstate="collapsed" desc="init function">
     public void init(){
         
-        //Initializing Progress Bar for Conversion Tasks
-        pb.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 20));
-        pb.setProgress(65);
-        final FrameLayout decorView = (FrameLayout) getWindow().getDecorView();
-        decorView.addView(pb);  
+        //Initializing Progress Bar
+        progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        progressBar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 20));
+        progressBar.setMax(100);
+        progressBar.setProgress(65);
+        progressBar.setVisibility(View.INVISIBLE);
         
-        ViewTreeObserver observer = pb.getViewTreeObserver();
+        final FrameLayout decorView = (FrameLayout) getWindow().getDecorView();
+        decorView.addView(progressBar);
+        
+        ViewTreeObserver observer = progressBar.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 View contentView = decorView.findViewById(R.id.content);
-                int actionBarHeight = getSupportActionBar().getHeight();
-                pb.setY(contentView.getY() + actionBarHeight - 10);
-        
-                ViewTreeObserver observer = pb.getViewTreeObserver();
-                observer.removeOnGlobalLayoutListener(this);
+                progressBar.setY(contentView.getY() - 8);
             }
             
         });
@@ -331,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Started command : ffmpeg " + command);
                     Log.d(TAG, "progress : " + s);
                     progressDialog.setMessage("Processing\n" + s);
+                    progressBar.setProgress(calculatePercentComplete(s));
                 }
 
                 @Override
@@ -338,12 +339,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Started command : ffmpeg " + command);
                     progressDialog.setMessage("Processing...");
                     progressDialog.show();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onFinish() {
                     Log.d(TAG, "Finished command : ffmpeg " + command);
                     progressDialog.dismiss();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
@@ -531,6 +534,24 @@ public class MainActivity extends AppCompatActivity {
         mm = sec/60 - hh*60;
         ss = sec - (mm*60) - (hh*60*60);
         return hh+":"+mm+":"+ss;
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Precentage Completion">
+    public int calculatePercentComplete(String time) {
+        if(time.contains("time=")){
+            int start = time.indexOf("time=")+5;
+            time = time.substring(start, start + 8);
+            String hh, mm, ss;
+            hh = time.substring(0, 2);
+            mm = time.substring(3, 5);
+            ss = time.substring(6, 8);
+            long timeComplete = Long.parseLong(hh)*60*60 + Long.parseLong(mm)*60 + Long.parseLong(ss);
+            int percent = (int) (timeComplete*100/timeInSecs);
+            return percent;
+        }
+        else{
+            return 0;
+        }
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Show FFmpeg Not Supported">
