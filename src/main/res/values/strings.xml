@@ -43,5 +43,6 @@
     <string name="filename_hint">yourfile.ext (with extension)</string>
     <string name="submit_advance">Submit Options</string>
     <string name="advanced_instructions">Options must be specified in the same format as ffmpeg software for Windows, Linux and Mac OS.</string>
-    <string name="open">Open File</string>
+    <string name="open">Open Outside</string>
+    <string name="share">Share File</string>
 </resources>

@@ -11,11 +11,23 @@
     android:orientation="vertical"
               app:layout_behavior="@string/appbar_scrolling_view_behavior">
     
+    <VideoView
+        android:layout_width="fill_parent"
+        android:layout_height="600dp"
+        android:id="@+id/videoPlayer" />
+    
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnOpenFile"
         android:text="@string/open"
         android:onClick="openFile" />
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnShareFile"
+        android:text="@string/share"
+        android:onClick="shareFile" />
 
 </LinearLayout>

@@ -9,9 +9,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.MediaController;
+import android.widget.VideoView;
 import java.io.File;
 
 /**
@@ -21,6 +22,9 @@ import java.io.File;
 public class NotifActivity extends Activity {
 
     private String previewPath;
+    private String mime;
+    private Uri fileUri;
+    private VideoView videoPlayer;
     /**
      * Called when the activity is first created.
      * @param icicle
@@ -42,19 +46,39 @@ public class NotifActivity extends Activity {
             previewPath = (String) icicle.getSerializable("PREVIEW_FILE");
         }
         
-        Log.d("clipit", previewPath);
+        File f = new File(previewPath);
+        fileUri = Uri.fromFile(f);
+        mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                MimeTypeMap.getFileExtensionFromUrl(
+                        fileUri.toString()
+                ));
+        
+        videoPlayer = (VideoView) findViewById(R.id.videoPlayer);
+        videoPlayer.setVideoURI(fileUri);
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoPlayer);
+        videoPlayer.setMediaController(mediaController);
         
     }
     
+    
     public void openFile(View view){
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        File f = new File(previewPath);
-        String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                MimeTypeMap.getFileExtensionFromUrl(
-                        Uri.fromFile(f).toString()
-                ));
-        i.setDataAndType(Uri.fromFile(f), mime);
+        Intent i = new Intent(Intent.ACTION_VIEW);        
+        i.setDataAndType(fileUri, mime);
         startActivity(i);
+    }
+    
+    public void shareFile(View view){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        shareIntent.setType(mime);
+        startActivity(Intent.createChooser(shareIntent, "Send"));
+    }
+    
+    @Override
+    public void onDestroy() {
+        videoPlayer.stopPlayback();
+        super.onDestroy();
     }
     
 }
