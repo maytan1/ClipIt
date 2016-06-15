@@ -9,25 +9,50 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-              app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
     
-    <VideoView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="fill_parent"
-        android:layout_height="600dp"
-        android:id="@+id/videoPlayer" />
+        android:layout_height="fill_parent" >
+        
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:id="@+id/videoFrame"
+            android:foreground="@drawable/ic_media_embed_play"
+            android:foregroundGravity="center"
+            android:foregroundTint="#000099"
+            android:clickable="true"
+            android:onClick="playContent"
+            android:gravity="center" >
+        
+            <VideoView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/videoPlayer" />
     
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnOpenFile"
-        android:text="@string/open"
-        android:onClick="openFile" />
+        </FrameLayout>
     
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnShareFile"
-        android:text="@string/share"
-        android:onClick="shareFile" />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnOpenFile"
+            android:hint="@string/open"
+            app:layout_anchor="@id/videoFrame"
+            app:layout_anchorGravity="bottom|left|end"
+            android:onClick="openFile"
+            android:src="@drawable/ic_commit_search_api_mtrl_alpha" />
+    
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnShareFile"
+            android:hint="@string/share"
+            app:layout_anchor="@id/videoFrame"
+            app:layout_anchorGravity="bottom|right|end"
+            android:onClick="shareFile"
+            android:src="@drawable/ic_menu_share_holo_dark" />
+        
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

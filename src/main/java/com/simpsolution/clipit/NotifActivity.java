@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.FrameLayout;
 import android.widget.MediaController;
 import android.widget.VideoView;
 import java.io.File;
@@ -25,6 +26,7 @@ public class NotifActivity extends Activity {
     private String mime;
     private Uri fileUri;
     private VideoView videoPlayer;
+    private MediaController mediaController;
     /**
      * Called when the activity is first created.
      * @param icicle
@@ -55,12 +57,16 @@ public class NotifActivity extends Activity {
         
         videoPlayer = (VideoView) findViewById(R.id.videoPlayer);
         videoPlayer.setVideoURI(fileUri);
-        MediaController mediaController = new MediaController(this);
+        mediaController = new MediaController(this);
         mediaController.setAnchorView(videoPlayer);
         videoPlayer.setMediaController(mediaController);
         
     }
     
+    public void playContent(View view) {
+        videoPlayer.start();
+        ((FrameLayout) findViewById(R.id.videoFrame)).setForeground(null);
+    }
     
     public void openFile(View view){
         Intent i = new Intent(Intent.ACTION_VIEW);        

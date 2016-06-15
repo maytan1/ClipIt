@@ -37,7 +37,7 @@ repositories {
 
 dependencies {
     compile(name:'FFMpegAndroid-release', ext:'aar')
-    compile(name:'rangeseekbar-library-0.3.0', ext:'aar')
+    compile(name:'AndroidRangeSeekBarTime-release', ext:'aar')
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
 }

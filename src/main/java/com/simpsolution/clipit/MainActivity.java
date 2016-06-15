@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private String ext = null;
     private String preview = null;
     private long timeInSecs;
+    private long newDuration;
     private int bitrate;
     private int maxBitrate;
 
@@ -167,14 +168,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar, Long minValue, Long maxValue) {
                 onTimeSelected(minValue, maxValue);
-            }
-            
+                newDuration = maxValue - minValue;
+            }            
         });
         rsb.setEnabled(false);
-        
-        //Initializing RangeSekBar Labels(TextView)
-        tvStart = (TextView) findViewById(R.id.startTime);
-        tvEnd = (TextView) findViewById(R.id.endTime);
         
         //Initializing Container Spinner
         containers = (Spinner)findViewById(R.id.format);
@@ -315,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                         notifManager.notify(FINISH_NOTIFICATION, notif.build());
                     }
                     else {
-                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted succeffully.", Snackbar.LENGTH_INDEFINITE)
+                        Snackbar.make(findViewById(R.id.btnExecute), "Your video was converted successfully.", Snackbar.LENGTH_INDEFINITE)
                                 .setAction("Preview", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -435,10 +432,6 @@ public class MainActivity extends AppCompatActivity {
     //<editor-fold defaultstate="collapsed" desc="On Duration Selected">
     public void onTimeSelected(long min, long max) {
         clip = "-ss,"+min+",-to,"+max+",";
-        String time = convertToTime(min);
-        tvStart.setText(time);
-        time = convertToTime(max);
-        tvEnd.setText(time);
     }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Execute Function">
@@ -508,8 +501,8 @@ public class MainActivity extends AppCompatActivity {
             maxBitrate = Integer.parseInt(bit);
             
             rsb.setRangeValues(0l, timeInSecs);
-            tvStart.setText(convertToTime(0));
-            tvEnd.setText(convertToTime(timeInSecs));
+            clip = "-ss,0,-to,"+timeInSecs+",";
+            newDuration = timeInSecs;
             
             sb.setMax(maxBitrate);
             sb.setProgress(sb.getMax());
@@ -526,16 +519,7 @@ public class MainActivity extends AppCompatActivity {
             cb.setChecked(false);
         }
     }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Convert to hh:mm:ss">
-    public String convertToTime(long sec) {
-        long hh, mm, ss;
-        hh = sec/(60*60);
-        mm = sec/60 - hh*60;
-        ss = sec - (mm*60) - (hh*60*60);
-        return hh+":"+mm+":"+ss;
-    }//</editor-fold>
-    
+        
     //<editor-fold defaultstate="collapsed" desc="Precentage Completion">
     public int calculatePercentComplete(String time) {
         if(time.contains("time=")){
@@ -546,7 +530,7 @@ public class MainActivity extends AppCompatActivity {
             mm = time.substring(3, 5);
             ss = time.substring(6, 8);
             long timeComplete = Long.parseLong(hh)*60*60 + Long.parseLong(mm)*60 + Long.parseLong(ss);
-            int percent = (int) (timeComplete*100/timeInSecs);
+            int percent = (int) (timeComplete*100/newDuration);
             return percent;
         }
         else{
