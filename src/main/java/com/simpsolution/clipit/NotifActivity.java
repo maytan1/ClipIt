@@ -5,12 +5,13 @@
  */
 package com.simpsolution.clipit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
@@ -22,7 +23,7 @@ import java.io.File;
  *
  * @author maytan
  */
-public class NotifActivity extends Activity {
+public class NotifActivity extends AppCompatActivity {
 
     private String previewPath;
     private String mime;
@@ -37,6 +38,8 @@ public class NotifActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_notification);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_notif);
+        setSupportActionBar(toolbar);
         // ToDo add your GUI initialization code here  
         
         if(icicle == null) {

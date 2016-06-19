@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Drawing Status Bar Material Design on Supported Versions
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            //@TargetApi(21)
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
         

@@ -20,9 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdvancedOptions" />   
+        <activity
+            android:name=".AdvancedOptions"
+            android:label="@string/advanced"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotifActivity"
+            android:label="@string/notification"
+            android:theme="@style/AppTheme.NoActionBar" 
             android:taskAffinity=""
             android:excludeFromRecents="true" >
         </activity>         

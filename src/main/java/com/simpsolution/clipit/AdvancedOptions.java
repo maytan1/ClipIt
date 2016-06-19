@@ -8,6 +8,8 @@ package com.simpsolution.clipit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,7 +17,7 @@ import android.widget.EditText;
  *
  * @author maytan
  */
-public class AdvancedOptions extends Activity {
+public class AdvancedOptions extends AppCompatActivity {
 
     private String selectedImagePath;
     /**
@@ -26,7 +28,8 @@ public class AdvancedOptions extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_advanced);
-        // ToDo add your GUI initialization code here
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_advanced);
+        setSupportActionBar(toolbar);
         
         if(icicle == null) {
             Bundle extras = getIntent().getExtras();
