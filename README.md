@@ -1,3 +1,5 @@
+# Introduction
+=============================
 ClipIt is a video conversion app based on ffmpeg. It provides a GUI interface for the ffmpeg binary from Hitesh Sondhi at Writing Minds.
 
 You can view that project at:

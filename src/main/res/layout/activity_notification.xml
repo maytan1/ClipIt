@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,23 +12,23 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     
     <android.support.design.widget.CoordinatorLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
         
         <FrameLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
             android:id="@+id/videoFrame"
             android:foreground="@drawable/ic_media_embed_play"
             android:foregroundGravity="center"
-            android:foregroundTint="#000099"
+            android:foregroundTint="#0000bb"
             android:clickable="true"
-            android:onClick="playContent"
-            android:gravity="center" >
+            android:onClick="playContent" >
         
             <VideoView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:id="@+id/videoPlayer" />
     
         </FrameLayout>
@@ -54,5 +54,14 @@
             android:src="@drawable/ic_menu_share_holo_dark" />
         
     </android.support.design.widget.CoordinatorLayout>
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSpread"
+        android:text="@string/spread_the_word"
+        android:onClick="spread"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
 </LinearLayout>

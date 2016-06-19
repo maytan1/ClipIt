@@ -6,6 +6,8 @@
 package com.simpsolution.clipit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -79,6 +81,27 @@ public class NotifActivity extends Activity {
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
         shareIntent.setType(mime);
         startActivity(Intent.createChooser(shareIntent, "Send"));
+    }
+    
+    public void spread(View view) {
+        final CharSequence socials[] = new CharSequence[]{"WhatsApp", "Facebook", "Twitter"};
+        AlertDialog.Builder choice = new AlertDialog.Builder(this);
+        choice.setTitle("Choose how..");
+        choice.setItems(socials, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface di, int i) {
+                if("WhatsApp".equals(socials[i])){
+                    ShareUtils.shareWhatsapp(NotifActivity.this, "Check out this new app ClipIt. Convert your music videos to songs, convert videos to format playable on phones and much more", "http://www.google.com");
+                }
+                else if("Facebook".equals(socials[i])){
+                    ShareUtils.shareFacebook(NotifActivity.this, "Check out this new app ClipIt. Convert your music videos to songs, convert videos to format playable on phones and much more", "http://www.google.com");
+                }
+                else if("Twitter".equals(socials[i])){
+                    ShareUtils.shareTwitter(NotifActivity.this, "Check out this new app ClipIt. Convert your music videos to songs, convert videos to format playable on phones and much more.", "http://www.google.com", "simpsolutions", "ClipIt,videoconversion,ffmpeg,android");
+                }
+            }
+        });
+        choice.show();
     }
     
     @Override

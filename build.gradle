@@ -10,13 +10,13 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.simpsolution.clipit"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -38,6 +38,6 @@ repositories {
 dependencies {
     compile(name:'FFMpegAndroid-release', ext:'aar')
     compile(name:'AndroidRangeSeekBarTime-release', ext:'aar')
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
 }

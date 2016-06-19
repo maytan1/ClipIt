@@ -45,4 +45,7 @@
     <string name="advanced_instructions">Options must be specified in the same format as ffmpeg software for Windows, Linux and Mac OS.</string>
     <string name="open">Open Outside</string>
     <string name="share">Share File</string>
+    <string name="spread_the_word">Spread the Word</string>
+    <string name="share_intent_title">WhatsApp</string>
+    <string name="share_whatsapp_not_instaled">WhatsApp not installed</string>
 </resources>
