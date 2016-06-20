@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Drawing Status Bar Material Design on Supported Versions
         setupActionBarFlags();
+        
+        //Preferences
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         
         //Making App Directory ClipIt
         outPath = Environment.getExternalStorageDirectory()+"/ClipIt";
@@ -248,19 +252,24 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id) {
+            case R.id.action_rate:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+getPackageName())));
             case R.id.action_settings:
+                startActivity(new Intent(this, Settings.class));
                 return true;
             case R.id.action_about:
+                startActivity(new Intent(this, About.class));
                 return true;
             case R.id.action_feedback:
+                startActivity(new Intent(this, Feedback.class));
                 return true;
             default:
                 break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }//</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="Load FFmpeg Binary">
     private void loadFFMpegBinary() {
         try {
