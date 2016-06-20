@@ -8,8 +8,10 @@ package com.simpsolution.clipit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -31,6 +33,8 @@ public class AdvancedOptions extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_advanced);
         setSupportActionBar(toolbar);
         
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
         if(icicle == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null){
@@ -41,6 +45,15 @@ public class AdvancedOptions extends AppCompatActivity {
         } else {
             selectedImagePath = (String) icicle.getSerializable("VIDEO_PATH");
         }
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home : NavUtils.navigateUpFromSameTask(this);
+                                        return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     public void onAdvancedOptionsSubmit(View view) {

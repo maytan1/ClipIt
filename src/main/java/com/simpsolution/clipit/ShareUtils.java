@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Author: Mario Velasco Casquero
@@ -82,7 +83,7 @@ public class ShareUtils {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl.toString()));
         List<ResolveInfo> matches = activity.getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo info : matches) {
-            if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
+            if (info.activityInfo.packageName.toLowerCase(Locale.US).startsWith("com.twitter")) {
                 intent.setPackage(info.activityInfo.packageName);
             }
         }

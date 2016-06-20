@@ -15,8 +15,6 @@
     <string name="slide_title">Clip/Trim</string>
     <string name="audio">Audio</string>
     <string name="video">Video</string>
-    <string name="start_time">Start</string>
-    <string name="end_time">End</string>
     <string name="advance">Advanced Options</string>
     <string-array name="video_containers">
         <item>AVI</item>

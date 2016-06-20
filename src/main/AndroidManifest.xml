@@ -23,13 +23,22 @@
         <activity
             android:name=".AdvancedOptions"
             android:label="@string/advanced"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".NotifActivity"
             android:label="@string/notification"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" 
             android:taskAffinity=""
             android:excludeFromRecents="true" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>         
     </application>
 

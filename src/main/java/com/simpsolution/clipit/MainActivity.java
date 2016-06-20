@@ -1,5 +1,6 @@
 package com.simpsolution.clipit;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
@@ -96,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Drawing Status Bar Material Design on Supported Versions
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
+        setupActionBarFlags();
         
         //Making App Directory ClipIt
         outPath = Environment.getExternalStorageDirectory()+"/ClipIt";
@@ -123,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         STATE = 0;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void setupActionBarFlags() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        }
     }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="init function">
@@ -241,8 +247,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_about:
+                return true;
+            case R.id.action_feedback:
+                return true;
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
