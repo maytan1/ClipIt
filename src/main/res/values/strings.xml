@@ -60,4 +60,15 @@
     <string name="cat_notif">Notifications</string>
     <string name="vibes">Vibration</string>
     <string name="vibes_summary">Vibrate on task complete</string>
+    <string name="ledcolors">Lights</string>
+    <string name="ledcolors_summary">Color of notification light : %s</string>
+    <string-array name="colors">
+        <item>Blue</item>
+        <item>Cyan</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+        <item>Purple</item>
+    </string-array>
 </resources>

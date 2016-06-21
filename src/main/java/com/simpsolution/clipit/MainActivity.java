@@ -9,7 +9,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
@@ -100,16 +102,16 @@ public class MainActivity extends AppCompatActivity {
         //Drawing Status Bar Material Design on Supported Versions
         setupActionBarFlags();
         
-        //Preferences
+        //Preference
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        
+                
         //Making App Directory ClipIt
         outPath = Environment.getExternalStorageDirectory()+"/ClipIt";
         File f = new File(outPath);
         if(!(f.exists() && f.isDirectory())){
             f.mkdir();
         }
-
+        
         init();
 
         loadFFMpegBinary();
@@ -137,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
 
     //<editor-fold defaultstate="collapsed" desc="init function">
     public void init(){
+        
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        //Screen Timeout
+        boolean timeout = pref.getBoolean("pref_key_clipit_timeout", false);
+        if(timeout){
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
         
         //Initializing Progress Bar
         progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
@@ -223,6 +235,23 @@ public class MainActivity extends AppCompatActivity {
         
         //Initializing Notification Components
         notif = new NotificationCompat.Builder(this);
+        boolean vibrate = pref.getBoolean("pref_key_clipit_vibes", false);
+        if(vibrate) {
+            notif.setVibrate(new long[] { 500, 600, 400, 600, 400});
+        }
+        int light = Color.BLUE;
+        String color = pref.getString("pref_key_clipit_ledcolors", "Blue");
+        switch(color) {
+            case "Blue": light = Color.BLUE; break;
+            case "Green": light = Color.GREEN; break;
+            case "Cyan": light = Color.CYAN; break;
+            case "Red": light = Color.RED; break;
+            case "White": light = Color.WHITE; break;
+            case "Yellow": light = Color.YELLOW; break;
+            case "Purple": light = Color.MAGENTA; break;
+        }
+        
+        notif.setLights(light, 500,500);
         notif.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Conversion Finished");
         notifManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -254,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_rate:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+getPackageName())));
+                return true;
             case R.id.action_settings:
                 startActivity(new Intent(this, Settings.class));
                 return true;

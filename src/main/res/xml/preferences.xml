@@ -20,6 +20,14 @@
             android:summary="@string/vibes_summary"
             android:title="@string/vibes"
             android:defaultValue="false" />
+        
+        <ListPreference
+            android:key="pref_key_clipit_ledcolors"
+            android:summary="@string/ledcolors_summary"
+            android:title="@string/ledcolors"
+            android:defaultValue="Blue"
+            android:entries="@array/colors"
+            android:entryValues="@array/colors" />
 
     </PreferenceCategory>
 

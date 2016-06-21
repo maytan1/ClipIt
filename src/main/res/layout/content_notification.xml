@@ -17,7 +17,7 @@
         
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:id="@+id/videoFrame"
             android:foreground="@drawable/ic_media_embed_play"
             android:foregroundGravity="center"
@@ -61,7 +61,7 @@
         android:id="@+id/btnSpread"
         android:text="@string/spread_the_word"
         android:onClick="spread"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
 </LinearLayout>
