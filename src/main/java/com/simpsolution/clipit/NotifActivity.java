@@ -40,7 +40,7 @@ public class NotifActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_notif);
         setSupportActionBar(toolbar);
-        // ToDo add your GUI initialization code here  
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         
         if(icicle == null) {
             Bundle extras = getIntent().getExtras();

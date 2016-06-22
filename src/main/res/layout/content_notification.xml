@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:id="@+id/videoFrame"
-            android:foreground="@drawable/ic_media_embed_play"
+            android:foreground="@drawable/ic_play_circle_outline_white_48dp"
             android:foregroundGravity="center"
             android:foregroundTint="#0022ff"
             android:clickable="true"
@@ -41,7 +41,7 @@
             app:layout_anchor="@id/videoFrame"
             app:layout_anchorGravity="bottom|left|end"
             android:onClick="openFile"
-            android:src="@drawable/ic_commit_search_api_mtrl_alpha" />
+            android:src="@drawable/ic_open_in_new_white_36dp" />
     
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_anchor="@id/videoFrame"
             app:layout_anchorGravity="bottom|right|end"
             android:onClick="shareFile"
-            android:src="@drawable/ic_menu_share_holo_dark" />
+            android:src="@drawable/ic_share_white_36dp" />
         
     </android.support.design.widget.CoordinatorLayout>
     

@@ -17,8 +17,8 @@ android {
         applicationId "com.simpsolution.clipit"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 05
-        versionName "0.5 Beta"
+        versionCode 1
+        versionName "0.8 Beta"
     }
     buildTypes {
         release {

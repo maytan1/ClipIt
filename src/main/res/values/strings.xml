@@ -71,4 +71,9 @@
         <item>Yellow</item>
         <item>Purple</item>
     </string-array>
+    <string name="feedback">Feedback and Suggessions</string>
+    <string name="name_hint">Your Name</string>
+    <string name="email_hint">Your Email Address</string>
+    <string name="feedback_hint">Write your feedback and suggestions here.</string>
+    <string name="submit_feedback">Submit Feedback</string>
 </resources>
