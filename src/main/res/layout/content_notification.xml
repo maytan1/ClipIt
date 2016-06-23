@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -21,7 +20,6 @@
             android:id="@+id/videoFrame"
             android:foreground="@drawable/ic_play_circle_outline_white_48dp"
             android:foregroundGravity="center"
-            android:foregroundTint="#0022ff"
             android:clickable="true"
             android:onClick="playContent" >
         
